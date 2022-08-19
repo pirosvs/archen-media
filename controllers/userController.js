@@ -52,7 +52,7 @@ module.exports = {
             ? res.status(404).json({ message: "No such user exists" })
             : Thought.deleteMany(
                 { users: req.params.userId },
-                // { $pull: { thoughts: req.params.userId } },
+                // { $pull: { thoughts: req.params.thoughtId } },
                 // { new: true }
               )
         )
@@ -69,13 +69,13 @@ module.exports = {
         });
     },
   
-    // Add a thought to a user
-    addThought(req, res) {
-      console.log("You are adding a thought");
-      console.log(req.body);
+    // Add a friend to a user friend list
+    addFriend(req, res) {
+      console.log("You are adding a friend");
+      console.log(req.friendId);
       User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $addToSet: { thoughts: req.thoughtText } },
+        { $addToSet: { friends: req.friendId } },
         { runValidators: true, new: true }
       )
         .then((user) =>
@@ -87,11 +87,12 @@ module.exports = {
         )
         .catch((err) => res.status(500).json(err));
     },
-    // Remove thought from a user
-    removeThought(req, res) {
+    // Remove friend from a user friend list
+    removeFriend(req, res) {
       User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $pull: { thought: { thoughtId: req.params.thoughtId } } },
+        // not sure if objectId in user model sets this to friend id? or user id?
+        { $pull: { friend: { friendId: req.params.friendId } } },
         { runValidators: true, new: true }
       )
         .then((user) =>
