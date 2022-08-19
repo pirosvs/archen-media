@@ -24,6 +24,7 @@ module.exports = {
         .then(async (user) =>
           !user
             ? res.status(404).json({ message: "No user with that ID" })
+            : res.json(user)
             // needs to get all thoughts and friendCount
             // : res.json({
             //     user,
