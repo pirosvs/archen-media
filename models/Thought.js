@@ -35,7 +35,13 @@ const thoughtSchema = new Schema(
   }
 );
 
-// reactionCount
+// reactionCount: Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
+// needs to be for each (or for the given thought -- done in routes?)
+const reactionCount = async () =>
+  Reaction.aggregate([
+    { $group: { _id: null, count: { $count: { } } } },
+  ]).then((numberOfThoughtReactions) => numberOfThoughtReactions
+);
 
 const User = model('thought', thoughtSchema);
 
