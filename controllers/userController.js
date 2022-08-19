@@ -51,8 +51,8 @@ module.exports = {
             ? res.status(404).json({ message: "No such user exists" })
             : Thought.deleteMany(
                 { users: req.params.userId },
-                { $pull: { users: req.params.userId } },
-                { new: true }
+                // { $pull: { thoughts: req.params.userId } },
+                // { new: true }
               )
         )
         .then((thought) =>
