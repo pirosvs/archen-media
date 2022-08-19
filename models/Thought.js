@@ -43,6 +43,6 @@ const reactionCount = async () =>
   ]).then((numberOfThoughtReactions) => numberOfThoughtReactions
 );
 
-const User = model('thought', thoughtSchema);
+const Thought = model('thought', thoughtSchema);
 
 module.exports = Thought;
